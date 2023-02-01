@@ -36,6 +36,9 @@ class MultiSelectBottomSheet<T> extends StatefulWidget
   /// Text on the select all button, if enabled.
   final Text? selectAllText;
 
+  /// Text on the select all button, if enabled.
+  final Text? deselectAllText;
+
   /// An enum that determines which type of list to render.
   final MultiSelectListType? listType;
 
@@ -95,6 +98,7 @@ class MultiSelectBottomSheet<T> extends StatefulWidget
     this.cancelText,
     this.confirmText,
     this.selectAllText,
+    this.deselectAllText,
     this.searchable = false,
     this.selectAll = false,
     this.selectedColor,
@@ -122,6 +126,7 @@ class MultiSelectBottomSheet<T> extends StatefulWidget
 class _MultiSelectBottomSheetState<T> extends State<MultiSelectBottomSheet<T>> {
   List<T> _selectedValues = [];
   bool _showSearch = false;
+  bool _isSelectAll = false;
   List<MultiSelectItem<T>> _items;
 
   _MultiSelectBottomSheetState(this._items);
@@ -136,6 +141,10 @@ class _MultiSelectBottomSheetState<T> extends State<MultiSelectBottomSheet<T>> {
         _items[i].selected = true;
       }
     }
+
+    _selectedValues.length == _items.length
+        ? _isSelectAll = true
+        : _isSelectAll = false;
 
     if (widget.separateSelectedItems) {
       _items = widget.separateSelected(_items);
@@ -228,6 +237,8 @@ class _MultiSelectBottomSheetState<T> extends State<MultiSelectBottomSheet<T>> {
   }
 
   void _selectAll(bool checked) {
+    _isSelectAll = checked;
+    _selectedValues = [];
     _items.forEach((item) => _setSelectedState(item, checked));
     if (widget.onSelectionChanged != null) {
       widget.onSelectionChanged!(_selectedValues);
@@ -362,19 +373,31 @@ class _MultiSelectBottomSheetState<T> extends State<MultiSelectBottomSheet<T>> {
                       Expanded(
                         child: TextButton(
                           onPressed: () {
-                            setState(() => _selectAll(true));
+                            setState(() => _selectAll(!_isSelectAll));
                           },
-                          child: widget.selectAllText ??
-                              Text(
-                                "SELECT ALL",
-                                style: TextStyle(
-                                  color: (widget.selectedColor != null &&
-                                      widget.selectedColor !=
-                                          Colors.transparent)
-                                      ? widget.selectedColor!.withOpacity(1)
-                                      : Theme.of(context).primaryColor,
-                                ),
-                              ),
+                          child: _isSelectAll
+                              ? widget.deselectAllText ??
+                                  Text(
+                                    "DESELECT ALL",
+                                    style: TextStyle(
+                                      color: (widget.selectedColor != null &&
+                                              widget.selectedColor !=
+                                                  Colors.transparent)
+                                          ? widget.selectedColor!.withOpacity(1)
+                                          : Theme.of(context).primaryColor,
+                                    ),
+                                  )
+                              : widget.selectAllText ??
+                                  Text(
+                                    "SELECT ALL",
+                                    style: TextStyle(
+                                      color: (widget.selectedColor != null &&
+                                              widget.selectedColor !=
+                                                  Colors.transparent)
+                                          ? widget.selectedColor!.withOpacity(1)
+                                          : Theme.of(context).primaryColor,
+                                    ),
+                                  ),
                         ),
                       ),
                     if (widget.selectAll) SizedBox(width: 10),

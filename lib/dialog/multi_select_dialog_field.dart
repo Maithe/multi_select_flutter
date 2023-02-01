@@ -54,6 +54,9 @@ class MultiSelectDialogField<V> extends FormField<List<V>> {
   /// Text on the select all button, if enabled.
   final Text? selectAllText;
 
+  /// Text on the select all button, if enabled.
+  final Text? deselectAllText;
+
   /// Set the color of the space outside the BottomSheet.
   final Color? barrierColor;
 
@@ -124,6 +127,7 @@ class MultiSelectDialogField<V> extends FormField<List<V>> {
     this.confirmText,
     this.cancelText,
     this.selectAllText,
+    this.deselectAllText,
     this.barrierColor,
     this.selectedColor,
     this.searchHint,
@@ -169,6 +173,7 @@ class MultiSelectDialogField<V> extends FormField<List<V>> {
                 confirmText: confirmText,
                 cancelText: cancelText,
                 selectAllText: selectAllText,
+                deselectAllText: deselectAllText,
                 barrierColor: barrierColor,
                 selectedColor: selectedColor,
                 searchHint: searchHint,
@@ -207,6 +212,7 @@ class _MultiSelectDialogFieldView<V> extends StatefulWidget {
   final Text? confirmText;
   final Text? cancelText;
   final Text? selectAllText;
+  final Text? deselectAllText;
   final Color? barrierColor;
   final Color? selectedColor;
   final double? dialogHeight;
@@ -241,6 +247,7 @@ class _MultiSelectDialogFieldView<V> extends StatefulWidget {
     this.confirmText,
     this.cancelText,
     this.selectAllText,
+    this.deselectAllText,
     this.barrierColor,
     this.selectedColor,
     this.searchHint,
@@ -277,6 +284,7 @@ class _MultiSelectDialogFieldView<V> extends StatefulWidget {
         confirmText = field.confirmText,
         cancelText = field.cancelText,
         selectAllText = field.selectAllText,
+        deselectAllText = field.deselectAllText,
         barrierColor = field.barrierColor,
         selectedColor = field.selectedColor,
         dialogHeight = field.dialogHeight,
@@ -400,6 +408,7 @@ class __MultiSelectDialogFieldViewState<V>
           confirmText: widget.confirmText,
           cancelText: widget.cancelText,
           selectAllText: widget.selectAllText,
+          deselectAllText: widget.deselectAllText,
           separateSelectedItems: widget.separateSelectedItems,
           onConfirm: (selected) {
             if (widget.state != null) {

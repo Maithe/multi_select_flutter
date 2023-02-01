@@ -47,6 +47,9 @@ class MultiSelectBottomSheetField<V> extends FormField<List<V>> {
   /// Text on the select all button, if enabled.
   final Text? selectAllText;
 
+  /// Text on the select all button, if enabled.
+  final Text? deselectAllText;
+
   /// An enum that determines which type of list to render.
   final MultiSelectListType? listType;
 
@@ -131,6 +134,7 @@ class MultiSelectBottomSheetField<V> extends FormField<List<V>> {
     this.confirmText,
     this.cancelText,
     this.selectAllText,
+    this.deselectAllText,
     this.selectedColor,
     this.initialChildSize,
     this.minChildSize,
@@ -191,6 +195,7 @@ class MultiSelectBottomSheetField<V> extends FormField<List<V>> {
                 searchable: searchable,
                 selectAll: selectAll,
                 selectAllText: selectAllText,
+                deselectAllText: deselectAllText,
                 selectedColor: selectedColor,
                 separateSelectedItems: separateSelectedItems,
                 shape: shape,
@@ -216,6 +221,7 @@ class _MultiSelectBottomSheetFieldView<V> extends StatefulWidget {
   final Text? confirmText;
   final Text? cancelText;
   final Text? selectAllText;
+  final Text? deselectAllText;
   final MultiSelectListType? listType;
   final Color? selectedColor;
   final String? searchHint;
@@ -254,6 +260,7 @@ class _MultiSelectBottomSheetFieldView<V> extends StatefulWidget {
     this.confirmText,
     this.cancelText,
     this.selectAllText,
+    this.deselectAllText,
     this.selectedColor,
     this.initialChildSize,
     this.minChildSize,
@@ -292,6 +299,7 @@ class _MultiSelectBottomSheetFieldView<V> extends StatefulWidget {
         confirmText = field.confirmText,
         cancelText = field.cancelText,
         selectAllText = field.selectAllText,
+        deselectAllText = field.deselectAllText,
         selectedColor = field.selectedColor,
         initialChildSize = field.initialChildSize,
         minChildSize = field.minChildSize,
@@ -414,6 +422,7 @@ class __MultiSelectBottomSheetFieldViewState<V>
             cancelText: widget.cancelText,
             confirmText: widget.confirmText,
             selectAllText: widget.selectAllText,
+            deselectAllText: widget.deselectAllText,
             separateSelectedItems: widget.separateSelectedItems,
             initialValue: _selectedItems,
             onConfirm: (selected) {
